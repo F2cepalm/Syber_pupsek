@@ -62,6 +62,8 @@ namespace Bot
                         if (update.Message.Text is not null)
                         {
                             if (update.Message.From.Username == "Gekkooni" && update.Message.Text == "@TurnOff_2111")
+                            { Environment.Exit(0); }
+
                             await CoinData.WriteToList(new CoinData(update.Message.From.Id, 0));
                             Admin.ChangeRStatus(update, bot);
                             if (update.Message.Text.StartsWith('/'))
