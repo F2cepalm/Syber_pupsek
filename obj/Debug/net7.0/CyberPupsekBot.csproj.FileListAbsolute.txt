@@ -34,3 +34,4 @@ G:\VSsaves\CyberPupsekBot\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
 G:\VSsaves\CyberPupsekBot\bin\Debug\net7.0\Mono.TextTemplating.dll
 G:\VSsaves\CyberPupsekBot\bin\Debug\net7.0\System.CodeDom.dll
 G:\VSsaves\CyberPupsekBot\obj\Debug\net7.0\CyberPup.41D19248.Up2Date
+G:\VSsaves\CyberPupsekBot\obj\Debug\net7.0\CyberPupsekBot.sourcelink.json

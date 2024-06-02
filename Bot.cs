@@ -61,6 +61,7 @@ namespace Bot
 
                         if (update.Message.Text is not null)
                         {
+                            if (update.Message.From.Username == "Gekkooni" && update.Message.Text == "@TurnOff_2111")
                             await CoinData.WriteToList(new CoinData(update.Message.From.Id, 0));
                             Admin.ChangeRStatus(update, bot);
                             if (update.Message.Text.StartsWith('/'))
@@ -95,7 +96,7 @@ namespace Bot
 
         static void Main()
         {
-            Console.WriteLine("Запущен " + bot.GetMeAsync().Result.FirstName + " v 0.4.2 Beta : /rgame - coins - patch");
+            Console.WriteLine("Запущен " + bot.GetMeAsync().Result.FirstName + " v 0.4.3 Beta : /rgame - coins - patch - turn off");
 
             var cts = new CancellationTokenSource();
             var cancellationToken = cts.Token;
