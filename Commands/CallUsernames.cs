@@ -72,7 +72,7 @@ namespace Bot
                 {
                     if (GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Contains(Update.Message.From.Username))
                     {
-                        GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Remove(Update.Message.Chat.Id.ToString());
+                        GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Remove(Update.Message.From.Username);
                         await Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вас больше не побеспокоят командой /all");
                     }
                     else

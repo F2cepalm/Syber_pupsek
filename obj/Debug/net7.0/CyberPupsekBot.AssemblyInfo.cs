@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CyberPupsekBot")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd1da80382b4d7c1da038169a228db466a7aee10")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+03d6d475f962e7afe0984feaebfa06729c7113d0")]
 [assembly: System.Reflection.AssemblyProductAttribute("CyberPupsekBot")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CyberPupsekBot")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
