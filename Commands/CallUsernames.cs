@@ -47,18 +47,18 @@ namespace Bot
                 if(!GroupSpecifiedUserList.ContainsKey(Update.Message.Chat.Id))
                 { 
                     GroupSpecifiedUserList.Add(Update.Message.Chat.Id, new UserTagsGroupSpecified { UserTags = new List<string> { Update.Message.From.Username } });
-                    Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вы добавлены в список перечисления тегов команды /all");
+                    await Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вы добавлены в список перечисления тегов команды /all");
                 }
                 else
                 {
                     if (!GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Contains(Update.Message.From.Username))
                     {
                         GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Add(Update.Message.Chat.Id.ToString());
-                        Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вы добавлены в список перечисления тегов команды /all");
+                        await Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вы добавлены в список перечисления тегов команды /all");
                     }
                     else
                     {
-                        Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вы уже были добавлены \nв список перечисления тегов команды /all");
+                        await Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вы уже были добавлены \nв список перечисления тегов команды /all");
                     }
                 }
                 UserTagsGroupSpecified.Write(GroupSpecifiedUserList);
@@ -73,16 +73,16 @@ namespace Bot
                     if (GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Contains(Update.Message.From.Username))
                     {
                         GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Remove(Update.Message.Chat.Id.ToString());
-                        Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вас больше не побеспокоят командой /all");
+                        await Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вас больше не побеспокоят командой /all");
                     }
                     else
                     {
-                        Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вас итак нет в списке перечисления команды /all");
+                        await Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вас итак нет в списке перечисления команды /all");
                     }
                 }
                 else
                 {
-                    Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вас итак нет в списке перечисления команды /all");
+                    await Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вас итак нет в списке перечисления команды /all");
                 }
                 UserTagsGroupSpecified.Write(GroupSpecifiedUserList);
             }

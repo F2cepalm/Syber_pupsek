@@ -5,7 +5,7 @@ namespace CyberPupsekBot.Functions
 {
     internal class AnonymousMessage
     {
-        internal async static void Send(ITelegramBotClient bot, Update update)
+        internal async static Task Send(ITelegramBotClient bot, Update update)
         {
             if(update.Message.Text.StartsWith("/an"))
             {
