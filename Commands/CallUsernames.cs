@@ -2,12 +2,14 @@
 using Telegram.Bot.Types;
 using System.Text.Json;
 using System.Timers;
+using CyberPupsekBot.Types;
 
 
 namespace Bot
 {
     class CallUsernames
     {
+        public static Dictionary<long, UserTagsGroupSpecified> GroupSpecifiedUserList = UserTagsGroupSpecified.Read();
         private ITelegramBotClient Bot {  get; set; }
         private Update Update { get; set; }
         public CallUsernames(ITelegramBotClient bot, Update update)
@@ -23,21 +25,18 @@ namespace Bot
         }
         async private Task Send()
         {
-            string[]? tags = new string[0];
-
             if (Update.Message.Text == "/all@syber_pupsek_bot" || Update.Message.Text == "/all")
             {
-                try
+                if (GroupSpecifiedUserList.ContainsKey(Update.Message.Chat.Id))
                 {
-                    tags = JsonSerializer.Deserialize<string[]>(System.IO.File.ReadAllText("Saves.json"));
+                    if(GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Count > 0)
+                    {
+                        foreach(var item in GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags)
+                        {
+                            await Bot.SendTextMessageAsync(Update.Message.Chat.Id, "@" + item.ToString());
+                        }
+                    }
                 }
-                catch (Exception ex) { await Console.Out.WriteLineAsync(ex.ToString()); }
-
-                foreach (var item in tags)
-                {
-                    await Bot.SendTextMessageAsync(Update.Message.Chat.Id, "@" + item);
-                }
-                await Bot.DeleteMessageAsync(Update.Message.Chat.Id, Update.Message.MessageId);
             }
         }
 
@@ -45,32 +44,47 @@ namespace Bot
         {
             if(Update.Message.Text.StartsWith("/callme"))
             {
-                List<string> names = new List<string>();
-                try
-                {
-                    names = JsonSerializer.Deserialize<List<string>>(System.IO.File.ReadAllText("Saves.json"));
+                if(!GroupSpecifiedUserList.ContainsKey(Update.Message.Chat.Id))
+                { 
+                    GroupSpecifiedUserList.Add(Update.Message.Chat.Id, new UserTagsGroupSpecified { UserTags = new List<string> { Update.Message.From.Username } });
+                    Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вы добавлены в список перечисления тегов команды /all");
                 }
-                catch { }
-                if (!names.Contains(Update.Message.From.Username))
+                else
                 {
-                    names.Add(Update.Message.From.Username);
-                    System.IO.File.WriteAllText("Saves.json", JsonSerializer.Serialize(names));
+                    if (!GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Contains(Update.Message.From.Username))
+                    {
+                        GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Add(Update.Message.Chat.Id.ToString());
+                        Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вы добавлены в список перечисления тегов команды /all");
+                    }
+                    else
+                    {
+                        Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вы уже были добавлены \nв список перечисления тегов команды /all");
+                    }
                 }
-
+                UserTagsGroupSpecified.Write(GroupSpecifiedUserList);
             }
         }
         private async Task Nocall()
         {
             if(Update.Message.Text.StartsWith("/nocall"))
             {
-                List<string> names = new List<string>();
-                try
+                if (GroupSpecifiedUserList.ContainsKey(Update.Message.Chat.Id))
                 {
-                    names = JsonSerializer.Deserialize<List<string>>(System.IO.File.ReadAllText("Saves.json"));
+                    if (GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Contains(Update.Message.From.Username))
+                    {
+                        GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Remove(Update.Message.Chat.Id.ToString());
+                        Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вас больше не побеспокоят командой /all");
+                    }
+                    else
+                    {
+                        Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вас итак нет в списке перечисления команды /all");
+                    }
                 }
-                catch { }
-                names.Remove(Update.Message.From.Username);
-                System.IO.File.WriteAllText("Saves.json", JsonSerializer.Serialize(names));
+                else
+                {
+                    Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вас итак нет в списке перечисления команды /all");
+                }
+                UserTagsGroupSpecified.Write(GroupSpecifiedUserList);
             }
         }
     }

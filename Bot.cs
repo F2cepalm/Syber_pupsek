@@ -8,6 +8,7 @@ using CyberPupsekBot.Games;
 using System.Text;
 using System.Diagnostics;
 using System.Reflection;
+using CyberPupsekBot.Types;
 
 namespace Bot
 {
@@ -98,7 +99,7 @@ namespace Bot
 
         static void Main()
         {
-            Console.WriteLine("Запущен " + bot.GetMeAsync().Result.FirstName + " v 0.4.3 Beta : /rgame - coins - patch - turn off");
+            Console.WriteLine("Запущен " + bot.GetMeAsync().Result.FirstName + " v 0.5.0 - Independence");
 
             var cts = new CancellationTokenSource();
             var cancellationToken = cts.Token;
@@ -179,38 +180,6 @@ namespace Bot
         static void TimerCallback(object state)
         {
             timerExpired = true;
-        }
-
-        static public void RestartBot()
-        {
-            try
-            {
-                // Get the current process
-                var currentProcess = Process.GetCurrentProcess();
-
-                // Get the executable file path
-                string exePath = currentProcess.MainModule.FileName;
-
-                // Create a new process start info object
-                ProcessStartInfo startInfo = new ProcessStartInfo
-                {
-                    FileName = exePath,
-                    UseShellExecute = false,
-                    WorkingDirectory = Path.GetDirectoryName(exePath)
-                };
-
-                // Start the new process
-                Process.Start(startInfo);
-
-                // Close the current process
-                currentProcess.CloseMainWindow();
-                currentProcess.Close();
-            }
-            catch (Exception ex)
-            {
-                // Handle any exceptions that may occur during the restart process
-                Console.WriteLine($"Error restarting the bot: {ex.Message}");
-            }
         }
     }
 }

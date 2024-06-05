@@ -111,12 +111,14 @@ namespace CyberPupsekBot.Games
 
         internal static List<CoinData> UpdateList(int coinDiff, int spentDiff, long id)
         {
-            globalCoinList.First(e => e.UserId == id).Coins += coinDiff;
-            if (globalCoinList.First(e => e.UserId == id).Coins < 0)
-                globalCoinList.First(e => e.UserId == id).Coins = 0;
-            globalCoinList.First(e => e.UserId == id).CoinsSpent += spentDiff;
-            if (globalCoinList.First(e => e.UserId == id).CoinsSpent < 0)
-                globalCoinList.First(e => e.UserId == id).CoinsSpent = 0;
+            var gcI = globalCoinList.First(e => e.UserId == id);
+
+            gcI.Coins += coinDiff;
+            if (gcI.Coins < 0)
+                gcI.Coins = 0;
+            gcI.CoinsSpent += spentDiff;
+            if (gcI.CoinsSpent < 0)
+                gcI.CoinsSpent = 0;
 
             System.IO.File.WriteAllText("CoinInfo.json", JsonConvert.SerializeObject(globalCoinList));
             return globalCoinList;

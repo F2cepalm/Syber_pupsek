@@ -14,7 +14,7 @@ namespace CyberPupsekBot.Games
     {
         static readonly ITelegramBotClient bot = new TelegramBotClient("6038220012:AAFtvZFgGTRDsYTPX5wS7FAu4ANWGORIk4Y");
         [JsonProperty]
-        static public List<GameModel>? gameList = new List<GameModel>();
+        static public List<GameModel>? gameList = ReadFile();
         static InlineKeyboardButton[][] keyboardBasic = new[]
 {
                         new[] { new InlineKeyboardButton("btn1") { Text = "Присоединиться", CallbackData = "join_rgame" } },
@@ -34,7 +34,6 @@ namespace CyberPupsekBot.Games
         {
             if(update.Message.Text.ToLower() == "/rgame" || update.Message.Text.ToLower() == "/rgame@syber_pupsek_bot")
             {
-                gameList = ReadFile();
                 if (!gameList.Any(gm => gm.GameId == update.Message.Chat.Id) || gameList.First(gm => gm.GameId == update.Message.Chat.Id).Status == "Finished")
                 {
                     InlineKeyboardMarkup markup = new InlineKeyboardMarkup(keyboardBasic);
@@ -52,7 +51,6 @@ namespace CyberPupsekBot.Games
                     };
                     gameList.Add(gm);
                     UpdateFile();
-                    gameList = ReadFile();
 
                     StringBuilder sb = new StringBuilder();
                     foreach (var item in gm.UserNames)
@@ -116,7 +114,6 @@ namespace CyberPupsekBot.Games
 
         static internal async Task UpdateGameEventCancel(GameModel gm, Update upd)
         {
-            gameList = ReadFile();
             if(gm is not null)
             {
                 if (gm.UserNames is not null)
@@ -125,7 +122,6 @@ namespace CyberPupsekBot.Games
                     gm.Ids.Remove(upd.CallbackQuery.From.Id);
                     gameList.First(gm => gm.GameId == upd.CallbackQuery.Message.Chat.Id).UserNames = gm.UserNames;
                     gameList.First(gm => gm.GameId == upd.CallbackQuery.Message.Chat.Id).Ids = gm.Ids;
-                    UpdateFile();
 
                     StringBuilder sb = new StringBuilder();
                     foreach (var item in gm.UserNames)
@@ -148,8 +144,8 @@ namespace CyberPupsekBot.Games
                         }
                         catch (Exception ex) { }
                         gameList.Remove(gameList.First(gm => gm.GameId == upd.CallbackQuery.Message.Chat.Id));
-                        UpdateFile();
                     }
+                    UpdateFile();
                 }
                 else
                 {
@@ -241,16 +237,12 @@ namespace CyberPupsekBot.Games
                         UpdateFile();
                     }
 
-                    gameList = ReadFile();
-                    gmI = gameList.First(gm => gm.GameId == upd.CallbackQuery.Message.Chat.Id);
-
                     if (gmI.UserNames.Count == 1)
                     {
                         Thread.Sleep(2000);
                         var mes = await bot.SendTextMessageAsync(upd.CallbackQuery.Message.Chat.Id, "Игра окончена" + "\n" + "Победил: " + "@" + gmI.UserNames[0] + "\n" + $"Начислено: {gmI.AppendCoins} монет");
                         await CoinData.IncCoins(gmI.Ids[0], gmI.AppendCoins);
                         gameList.Remove(gmI);
-                        UpdateFile();
                     }
                     else
                     {
@@ -265,6 +257,7 @@ namespace CyberPupsekBot.Games
                         {
                             gmI.indexBullets = 0;
                             gmI.Bullets = Bullet.CreateBulletPack(6, 1);
+                            await bot.SendTextMessageAsync(upd.CallbackQuery.Message.Chat.Id, "Перезаряжаемся...");
                             Thread.Sleep(5000);
                             await bot.SendTextMessageAsync(upd.CallbackQuery.Message.Chat.Id, "Револьвер перезаряжен, \n\nпродолжайте стрелять...");
                             Thread.Sleep(2000);
@@ -273,8 +266,8 @@ namespace CyberPupsekBot.Games
                         InlineKeyboardMarkup markup = new InlineKeyboardMarkup(keyboardGame);
                         var mes = await bot.SendTextMessageAsync(gm.GameId, "Очередь игрока: @" + gmI.TurnUsername, replyMarkup: markup, cancellationToken: cts);
                         gmI.RootMessageId = mes.MessageId;
-                        UpdateFile();
                     }
+                    UpdateFile();
                 }
             }
             else
