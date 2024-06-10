@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "G:\\VSsaves\\CyberPupsekBot\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{84A4FC65-D424-4E92-8323-F6EED3578CF9}|CyberPupsekBot.csproj|g:\\vssaves\\cyberpupsekbot\\commands\\callusernames.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{84A4FC65-D424-4E92-8323-F6EED3578CF9}|CyberPupsekBot.csproj|solutionrelative:commands\\callusernames.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|G:\\VSsaves\\CyberPupsekBot\\bin\\Debug\\net7.0\\Saves.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:bin\\Debug\\net7.0\\Saves.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{84A4FC65-D424-4E92-8323-F6EED3578CF9}|CyberPupsekBot.csproj|g:\\vssaves\\cyberpupsekbot\\bot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{84A4FC65-D424-4E92-8323-F6EED3578CF9}|CyberPupsekBot.csproj|solutionrelative:bot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{84A4FC65-D424-4E92-8323-F6EED3578CF9}|CyberPupsekBot.csproj|g:\\vssaves\\cyberpupsekbot\\commands\\callusernames.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84A4FC65-D424-4E92-8323-F6EED3578CF9}|CyberPupsekBot.csproj|solutionrelative:commands\\callusernames.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{84A4FC65-D424-4E92-8323-F6EED3578CF9}|CyberPupsekBot.csproj|g:\\vssaves\\cyberpupsekbot\\commands\\helpcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{84A4FC65-D424-4E92-8323-F6EED3578CF9}|CyberPupsekBot.csproj|solutionrelative:commands\\helpcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{84A4FC65-D424-4E92-8323-F6EED3578CF9}|CyberPupsekBot.csproj|g:\\vssaves\\cyberpupsekbot\\bot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84A4FC65-D424-4E92-8323-F6EED3578CF9}|CyberPupsekBot.csproj|solutionrelative:bot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{84A4FC65-D424-4E92-8323-F6EED3578CF9}|CyberPupsekBot.csproj|g:\\vssaves\\cyberpupsekbot\\viewmodels\\usertagsgroupspecified.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -74,11 +74,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Bot.cs",
               "DocumentMoniker": "G:\\VSsaves\\CyberPupsekBot\\Bot.cs",
               "RelativeDocumentMoniker": "Bot.cs",
@@ -86,8 +86,7 @@
               "RelativeToolTip": "Bot.cs",
               "ViewState": "AQIAABYAAAAAAAAAAAAAAEsAAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-08-10T14:18:10.408Z",
-              "EditorCaption": ""
+              "WhenOpened": "2023-08-10T14:18:10.408Z"
             },
             {
               "$type": "Document",
@@ -115,26 +114,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Saves.json",
               "DocumentMoniker": "G:\\VSsaves\\CyberPupsekBot\\bin\\Debug\\net7.0\\Saves.json",
               "RelativeDocumentMoniker": "bin\\Debug\\net7.0\\Saves.json",
               "ToolTip": "G:\\VSsaves\\CyberPupsekBot\\bin\\Debug\\net7.0\\Saves.json",
               "RelativeToolTip": "bin\\Debug\\net7.0\\Saves.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAA8AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAACJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2023-12-02T18:04:37.654Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "CallUsernames.cs",
               "DocumentMoniker": "G:\\VSsaves\\CyberPupsekBot\\Commands\\CallUsernames.cs",
               "RelativeDocumentMoniker": "Commands\\CallUsernames.cs",
-              "ToolTip": "G:\\VSsaves\\CyberPupsekBot\\Commands\\CallUsernames.cs*",
-              "RelativeToolTip": "Commands\\CallUsernames.cs*",
-              "ViewState": "AQIAADUAAAAAAAAAAAAAAEoAAABzAAAA",
+              "ToolTip": "G:\\VSsaves\\CyberPupsekBot\\Commands\\CallUsernames.cs",
+              "RelativeToolTip": "Commands\\CallUsernames.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAADcAAABnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2023-12-02T18:02:53.288Z",
               "EditorCaption": ""
@@ -177,7 +176,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "HelpCommand.cs",
               "DocumentMoniker": "G:\\VSsaves\\CyberPupsekBot\\Commands\\HelpCommand.cs",
               "RelativeDocumentMoniker": "Commands\\HelpCommand.cs",
@@ -185,7 +184,8 @@
               "RelativeToolTip": "Commands\\HelpCommand.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAB5AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2023-12-05T16:26:23.188Z"
+              "WhenOpened": "2023-12-05T16:26:23.188Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",

@@ -53,7 +53,7 @@ namespace Bot
                 {
                     if (!GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Contains(Update.Message.From.Username))
                     {
-                        GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Add(Update.Message.Chat.Id.ToString());
+                        GroupSpecifiedUserList[Update.Message.Chat.Id].UserTags.Add(Update.Message.From.Username);
                         await Bot.SendTextMessageAsync(Update.Message.Chat.Id, "Вы добавлены в список перечисления тегов команды /all");
                     }
                     else
