@@ -15,7 +15,7 @@ namespace Bot
         }
         internal async Task Process()
         {
-            Kick();
+            await Kick();
         }
         async public Task Kick()
         {

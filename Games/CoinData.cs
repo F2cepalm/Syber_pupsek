@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Telegram.Bot;
+using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 
 namespace CyberPupsekBot.Games
@@ -52,7 +48,7 @@ namespace CyberPupsekBot.Games
         }
         internal static async Task GetAmount(Update upd, ITelegramBotClient bot)
         {
-            if (upd.Message.Text.ToLower().StartsWith("/mycoins"))
+            if (upd.Message.Text.ToLower().StartsWith("/mycoins") || upd.Message.Text.ToLower().StartsWith("/coins"))
             {
                 int coins;
                 var dataCoin = ReadFile().FirstOrDefault(obj => obj.UserId == upd.Message.From.Id);
@@ -64,7 +60,20 @@ namespace CyberPupsekBot.Games
                 {
                     coins = 0;
                 }
-                await bot.SendTextMessageAsync(upd.Message.Chat.Id, "@" + upd.Message.From.Username + $", у вас {coins} монет");
+                if (upd.Message.From.Username != null)
+                {
+                    try
+                    {
+                        await bot.SendTextMessageAsync(upd.Message.Chat.Id, $"@{upd.Message.From.Username}, у вас {coins} монет");
+                    }
+                    catch(ApiRequestException e)
+                    {
+                        await bot.SendTextMessageAsync(upd.Message.Chat.Id, $"Начните диалог с ботом в личных сообщениях для корректной работы. \n\t@syber_pupsek_bot");
+                        await bot.SendTextMessageAsync(upd.Message.Chat.Id, $"У вас {coins} монет");
+                    }
+                }
+                else
+                    await bot.SendTextMessageAsync(upd.Message.Chat.Id, "@" + upd.Message.From.Username + $", у вас {coins} монет");
             }
         }
 

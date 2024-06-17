@@ -6,6 +6,7 @@ using CyberPupsekBot.Commands;
 using CyberPupsekBot.Games;
 using System.Text;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Exceptions;
 
 namespace Bot
 {
@@ -14,7 +15,7 @@ namespace Bot
         internal static ITelegramBotClient bot = new TelegramBotClient("6038220012:AAFtvZFgGTRDsYTPX5wS7FAu4ANWGORIk4Y");
         public static async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-                if (update.Type == Telegram.Bot.Types.Enums.UpdateType.CallbackQuery)
+                if (update.Type == UpdateType.CallbackQuery)
                 {
                     Roulette.gameList = Roulette.ReadFile();
                     if (update.CallbackQuery.Data == ("shoot_rgame"))
@@ -31,14 +32,12 @@ namespace Bot
 
                     Console.WriteLine("From: " + update.CallbackQuery.From.Username + " \n Data: " + update.CallbackQuery.Data + " \n Type: " + update.Type + " \n ID: " + update.CallbackQuery.From.Id + "\n ------------------------------------------------------------------------------------------------------");
                 }
-                else if (update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)
+                else if (update.Type == UpdateType.Message)
                 {
                     if (update.Message.MigrateToChatId != 0)
                     {
                         if (update.Message.Text is not null)
                         {
-                            if (update.Message.From.Username == "Gekkooni" && update.Message.Text == "@TurnOff_2111")
-                            { Environment.Exit(0); }
                             await CoinData.WriteToList(new CoinData(update.Message.From.Id, 0));
 
                             if (update.Message.Text.StartsWith('/'))
@@ -52,6 +51,7 @@ namespace Bot
                                 await Roulette.Start(update, cancellationToken);
 
                                 await AnonymousMessage.Send(botClient, update);
+                                await Shop.ProcessMessage(update, bot);
                                 await tec.Process();
                                 await cu.Process();
                                 await rm.Process();
@@ -61,9 +61,11 @@ namespace Bot
                     }
                 }
 
-                var message = update.Message;
-                if (update.Type == Telegram.Bot.Types.Enums.UpdateType.Message)
-                    Console.WriteLine("From: " + message.From.Username + " \n Message: " + message.Text + " \n Type: " + message.Type + " \n ID: " + message.From.Id + "\n ------------------------------------------------------------------------------------------------------");
+            var message = update.Message;
+            if (update.Type == UpdateType.Message)
+            {
+                Console.WriteLine("From: " + message.From.Username + " \n Message: " + message.Text + " \n Type: " + message.Type + " \n ID: " + message.From.Id + "\n ------------------------------------------------------------------------------------------------------");
+            }
         }
 
         public static async Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
@@ -75,7 +77,7 @@ namespace Bot
 
         static void Main()
         {
-            Console.WriteLine("Запущен " + bot.GetMeAsync().Result.FirstName + " v 0.5.1 - Independence - partial code fix");
+            Console.WriteLine("Запущен " + bot.GetMeAsync().Result.FirstName + " v 0.6.0 - Beta shop & major bug fix - stability");
 
             var cts = new CancellationTokenSource();
             var cancellationToken = cts.Token;
@@ -87,12 +89,24 @@ namespace Bot
                     UpdateType.CallbackQuery
                 }
             };
-            bot.StartReceiving(
-                HandleUpdateAsync,
-                HandleErrorAsync,
-                receiverOptions,
-                cancellationToken
-            );
+
+            try
+            {
+                bot.StartReceiving(
+                    HandleUpdateAsync,
+                    HandleErrorAsync,
+                    receiverOptions,
+                    cancellationToken
+                );
+            }
+            catch (Exception ex)
+            {
+                if(!System.IO.File.Exists("Error.txt"))
+                { System.IO.File.Create("Error.txt"); }
+                System.IO.File.WriteAllText("Error.txt", ex.Message.ToString());
+                Console.WriteLine(ex.Message);
+            }
+
             Console.ReadLine();
         }
     }

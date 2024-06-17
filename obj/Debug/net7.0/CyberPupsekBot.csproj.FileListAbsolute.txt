@@ -17,7 +17,6 @@ G:\VSsaves\CyberPupsekBot\obj\Debug\net7.0\CyberPupsekBot.genruntimeconfig.cache
 G:\VSsaves\CyberPupsekBot\obj\Debug\net7.0\ref\CyberPupsekBot.dll
 G:\VSsaves\CyberPupsekBot\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 G:\VSsaves\CyberPupsekBot\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
-G:\VSsaves\CyberPupsekBot\bin\Debug\net7.0\Npgsql.dll
 G:\VSsaves\CyberPupsekBot\bin\Debug\net7.0\Humanizer.dll
 G:\VSsaves\CyberPupsekBot\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
 G:\VSsaves\CyberPupsekBot\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll

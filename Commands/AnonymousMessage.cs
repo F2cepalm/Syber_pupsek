@@ -1,4 +1,5 @@
 ﻿using Telegram.Bot;
+using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 
 namespace CyberPupsekBot.Functions
@@ -10,7 +11,14 @@ namespace CyberPupsekBot.Functions
             if(update.Message.Text.StartsWith("/an"))
             {
                 var text = update.Message.Text.Split(' ');
-                await bot.DeleteMessageAsync(update.Message.Chat.Id, update.Message.MessageId);
+                try
+                {
+                    await bot.DeleteMessageAsync(update.Message.Chat.Id, update.Message.MessageId);
+                }
+                catch (ApiRequestException e)
+                {
+                    
+                }
                 text[0] = "";
                 string message = string.Join(" ", text);
 
