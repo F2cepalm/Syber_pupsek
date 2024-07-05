@@ -10,6 +10,8 @@ using Telegram.Bot.Exceptions;
 
 namespace Bot
 {
+    //ввести timespan в cts
+    //добавить способы обработки request timed out
     class MainBot
     {
         internal static ITelegramBotClient bot = new TelegramBotClient("6038220012:AAFtvZFgGTRDsYTPX5wS7FAu4ANWGORIk4Y");
@@ -17,6 +19,7 @@ namespace Bot
         {
                 if (update.Type == UpdateType.CallbackQuery)
                 {
+                    await Shop.ProcessCallback(update, botClient);
                     Roulette.gameList = Roulette.ReadFile();
                     if (update.CallbackQuery.Data == ("shoot_rgame"))
                     { await Roulette.TryShooting(Roulette.gameList.First(gm => update.CallbackQuery.Message.Chat.Id == gm.GameId), update, cancellationToken); }
@@ -31,7 +34,8 @@ namespace Bot
                     { await Roulette.UpdateGameEventStart(Roulette.gameList.First(gm => update.CallbackQuery.Message.Chat.Id == gm.GameId), update, cancellationToken); }
 
                     Console.WriteLine("From: " + update.CallbackQuery.From.Username + " \n Data: " + update.CallbackQuery.Data + " \n Type: " + update.Type + " \n ID: " + update.CallbackQuery.From.Id + "\n ------------------------------------------------------------------------------------------------------");
-                }
+                    await bot.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
+            }
                 else if (update.Type == UpdateType.Message)
                 {
                     if (update.Message.MigrateToChatId != 0)
@@ -77,37 +81,37 @@ namespace Bot
 
         static void Main()
         {
-            Console.WriteLine("Запущен " + bot.GetMeAsync().Result.FirstName + " v 0.6.0 - Beta shop & major bug fix - stability");
-
-            var cts = new CancellationTokenSource();
-            var cancellationToken = cts.Token;
-            var receiverOptions = new ReceiverOptions
-            {
-                AllowedUpdates = new UpdateType[]
-                {
-                    UpdateType.Message,       
-                    UpdateType.CallbackQuery
-                }
-            };
-
+            ActivateBot();
+            Console.ReadLine();
+        }
+        static void ActivateBot()
+        {
             try
             {
-                bot.StartReceiving(
-                    HandleUpdateAsync,
-                    HandleErrorAsync,
-                    receiverOptions,
-                    cancellationToken
-                );
-            }
-            catch (Exception ex)
-            {
-                if(!System.IO.File.Exists("Error.txt"))
-                { System.IO.File.Create("Error.txt"); }
-                System.IO.File.WriteAllText("Error.txt", ex.Message.ToString());
-                Console.WriteLine(ex.Message);
-            }
+                var cts = new CancellationTokenSource();
+                var cancellationToken = cts.Token;
+                var receiverOptions = new ReceiverOptions
+                {
+                    AllowedUpdates = new UpdateType[]
+                    {
+                    UpdateType.Message,
+                    UpdateType.CallbackQuery
+                    }
+                };
 
-            Console.ReadLine();
+                bot.StartReceiving(
+                        HandleUpdateAsync,
+                        HandleErrorAsync,
+                        receiverOptions,
+                        cancellationToken
+                    );
+                Console.WriteLine("Запущен " + bot.GetMeAsync().Result.FirstName + " v 0.7.0 - shop & major bug fixes");
+            }
+            catch (ApiRequestException ex)
+            {
+                Console.WriteLine("\n\n\n Request exception---------------------------() \n\n\n");
+                ActivateBot();
+            }
         }
     }
 }

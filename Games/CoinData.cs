@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Drawing;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
@@ -75,6 +76,29 @@ namespace CyberPupsekBot.Games
                 else
                     await bot.SendTextMessageAsync(upd.Message.Chat.Id, "@" + upd.Message.From.Username + $", у вас {coins} монет");
             }
+        }
+        internal static async Task<int> GetAmount(Update upd)
+        {
+            int coins;
+            CoinData dataCoin;
+            try
+            {
+                dataCoin = ReadFile().First(obj => obj.UserId == upd.Message.From.Id);
+            }
+            catch (NullReferenceException e)
+            {
+                dataCoin = ReadFile().FirstOrDefault(obj => obj.UserId == upd.CallbackQuery.From.Id);
+            }
+
+            if (dataCoin != null)
+            {
+                coins = dataCoin.Coins;
+            }
+            else
+            {
+                coins = 0;
+            }
+            return coins;
         }
 
         internal static List<CoinData> ReadFile()

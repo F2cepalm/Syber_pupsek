@@ -24,7 +24,7 @@ namespace CyberPupsekBot.Functions
                 {
                     await bot.SendTextMessageAsync(update.Message.From.Id, helpMessage);
                 }
-                catch(ApiRequestException e)
+                catch(ApiRequestException)
                 {
                     if (update.Message.From.Username != null)
                         await bot.SendTextMessageAsync(update.Message.Chat.Id, $"Начните диалог с ботом в личных сообщениях для корректной работы. \n\t@syber_pupsek_bot");
